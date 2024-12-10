@@ -128,35 +128,25 @@ const car = {
   speed: 100,
   maxSpeed: 216,
   accelerate: function (increaseSpeed) {
-    if (this.speed + increaseSpeed <= this.maxSpeed) {
-      this.speed += increaseSpeed;  
-      console.log(
-        `Car speed ${this.speed} km/h. The maximum speed is not exceeded`
-      )
-    } else {
-      this.speed += increaseSpeed;  
-      console.log(
-        `Car speed ${this.speed} km/h. The maximum speed is exceeded`
-      )
-    };
+    this.speed = this.speed + increaseSpeed;
+    if (this.speed > this.maxSpeed) {
+      this.speed = this.maxSpeed;
+    }
+    return this.speed;
   },
   deaccelerate: function (decreaseSpeed) {
-    if (this.speed - decreaseSpeed > 0){
-      this.speed -= decreaseSpeed;
-      console.log(`Car speed ${this.speed} km/h. The speed is correct`);
-    } else {
+    this.speed = this.speed - decreaseSpeed;
+    if (this.speed < 0) {
       this.speed = 0;
-      console.log(`Car speed ${this.speed} km/h. The speed  is not correct`);
-    };
+    }
+    return this.speed;
   },
   stop: function () {
-      this.speed = 0;
-      console.log(`Car speed ${this.speed} km/h. The car does not move`);
-    },
+    this.speed = 0;
+    return this.speed;
+  },
 };
-car.accelerate(50);
-car.deaccelerate(140);
-car.stop(0);
+console.log(car);
 //--------------------------------------------------------------------
 
 /*
@@ -166,7 +156,7 @@ car.stop(0);
  з різними властивостями
  */
 
- function Car(color, brand, model, engineVolume, passengers, speed, maxSpeed) {
+function Car(color, brand, model, engineVolume, passengers, speed, maxSpeed) {
   this.color = color;
   this.brand = brand;
   this.model = model;
@@ -174,10 +164,29 @@ car.stop(0);
   this.passengers = passengers;
   this.speed = speed;
   this.maxSpeed = maxSpeed;
-};
-const car1 = new Car('white', 'Suzuki','Swift',1900, 4, 90,160);
+  this.accelerate = function (increaseSpeed) {
+    this.speed = this.speed + increaseSpeed;
+    if (this.speed > this.maxSpeed) {
+      this.speed = this.maxSpeed;
+    }
+    return this.speed;
+  };
+  this.deaccelerate = function (decreaseSpeed) {
+    this.speed = this.speed - decreaseSpeed;
+    if (this.speed < 0) {
+      this.speed = 0;
+    }
+    return this.speed;
+  };
+  this.stop = function () {
+    this.speed = 0;
+    return this.speed;
+  };
+}
+
+const car1 = new Car("white", "Suzuki", "Swift", 1900, 4, 90, 160);
 console.log(car1);
-const car2 = new Car('black', 'Toyota','Rav4',2500, 5, 120,190);
+const car2 = new Car("black", "Toyota", "Rav4", 2500, 5, 120, 190);
 console.log(car2);
-const car3 = new Car('green', 'Reno','Duster',1600, 4, 100,180);
+const car3 = new Car("green", "Reno", "Duster", 1600, 4, 100, 180);
 console.log(car3);
